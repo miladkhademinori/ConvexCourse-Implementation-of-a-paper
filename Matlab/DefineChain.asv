@@ -1,0 +1,8 @@
+function [ Dsd,Tfi ] =DefineChain()
+%UNTITLED3 Summary of this function goes here
+%   Detailed explanation goes here
+Dsd=[1 1 1 1 1];
+Tfi=[1 0 0 0 0];
+
+end
+

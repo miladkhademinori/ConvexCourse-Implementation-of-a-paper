@@ -1,0 +1,23 @@
+clc,clear,close all
+Ic=4;  %%Number of instances for SC c
+M=2;   %%Max number of specific functions in each nodes
+Rf=2;  %%Max number of each functions in the netwok
+K=5;   %%Max number of NFV nodes
+C=1;   %%Number of chains
+f(1,C)=5; %%Number of functions in each chains
+V=14;  %%Number of nodes in network topology
+ncore=[0 0 100 0 100 0 0 100 0 100 0 0 0 0];  %%Core number of each node
+SDNum=5; %%Number of source-destinations
+TopoNum=10; %%Number of topologies
+[Dsd,Tfi,nf]=DefineChain(C,SDNum);
+[Delta,b,a]=DefineTopologies();
+F=objectivefunction(Dsd,Delta,b);
+[A,B,Aeq,Beq]=DefineConstraints(Ic,M,a,Tfi,Rf,K,f,V,Delta,C,TopoNum,nf,ncore,SDNum,Dsd);
+intcon = [1:94];
+A1=zeros(1,94);
+B1=0;
+Aeq1=zeros(1,94);
+Beq1=0;
+lb = zeros(94,1);
+ub = ones(94,1);
+x = intlinprog(F,intcon,A,B,Aeq,Beq1,lb,ub)
